@@ -18,7 +18,7 @@ func buildInstallCommand(m *aws.Mixin) *cobra.Command {
 			return nil
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return m.Install()
+			return m.Execute()
 		},
 	}
 	return cmd

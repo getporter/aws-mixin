@@ -1,0 +1,7 @@
+uninstall:
+  - aws:
+      description: "Deprovision VM"
+      service: ec2
+      operation: terminate-instances
+      flags:
+        instance-ids: "i-5203422c i-5203422d"

@@ -10,7 +10,10 @@
             "description": {
               "$ref": "#/definitions/stepDescription"
             },
-            "name": {
+            "service": {
+              "type": "string"
+            },
+            "command": {
               "type": "string"
             },
             "parameters": {
@@ -18,12 +21,16 @@
               "additionalProperties": {
                 "type": "string"
               }
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
             }
           },
           "additionalProperties": false,
           "required": [
-            "name",
-            "parameters"
+            "description",
+            "service",
+            "command"
           ]
         }
       },
@@ -33,12 +40,6 @@
       "additionalProperties": false
     },
     "upgradeStep": {
-      "$ref": "#/definitions/unimplementedStep"
-    },
-    "uninstallStep": {
-      "$ref": "#/definitions/unimplementedStep"
-    },
-    "unimplementedStep": {
       "type": "object",
       "properties": {
         "aws": {
@@ -46,43 +47,118 @@
           "properties": {
             "description": {
               "$ref": "#/definitions/stepDescription"
+            },
+            "service": {
+              "type": "string"
+            },
+            "command": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
             }
           },
           "additionalProperties": false,
           "required": [
-            "description"
+            "description",
+            "service",
+            "command"
           ]
         }
       },
       "required": [
         "aws"
-      ]
+      ],
+      "additionalProperties": false
+    },
+    "uninstallStep": {
+      "type": "object",
+      "properties": {
+        "aws": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            },
+            "service": {
+              "type": "string"
+            },
+            "command": {
+              "type": "string"
+            },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "service",
+            "command"
+          ]
+        }
+      },
+      "required": [
+        "aws"
+      ],
+      "additionalProperties": false
     },
     "stepDescription": {
       "type": "string",
       "minLength": 1
-    }
-  },
-  "type": "object",
-  "properties": {
-    "install": {
+    },
+    "outputs": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/installStep"
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "jsonPath": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "jsonPath"
+        ]
       }
     },
-    "upgrade": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/upgradeStep"
+    "type": "object",
+    "properties": {
+      "install": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/installStep"
+        }
+      },
+      "upgrade": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/upgradeStep"
+        }
+      },
+      "uninstall": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/uninstallStep"
+        }
       }
     },
-    "uninstall": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/uninstallStep"
-      }
-    }
-  },
-  "additionalProperties": false
+    "additionalProperties": false
+  }
 }

@@ -1,8 +1,13 @@
-aws:
-  description: "Summon Minion"
-  name: "man-e-faces"
-  parameters:
-    species: "human"
-  outputs:
-    - name: "VICTORY"
-      key: "VICTORY_STATUS"
+install:
+  - aws:
+      description: "Provision VM"
+      service: ec2
+      operation: run-instances
+      arguments:
+        - myinst
+      flags:
+        image-id: ami-xxxxxxxx
+        instance-type: t2.micro
+      outputs:
+        - name: "INSTANCE_ID"
+          jsonPath: "$.Instances[0].InstanceId"

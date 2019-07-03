@@ -1,0 +1,8 @@
+upgrade:
+  - aws:
+      description: "Tag VM"
+      service: ec2
+      operation: create-tags
+      flags:
+        resources: i-5203422c
+        tags: "Key=canary,Value=true"
