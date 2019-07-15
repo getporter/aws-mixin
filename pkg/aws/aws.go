@@ -98,13 +98,14 @@ func (m *Mixin) Execute() error {
 	}
 	fmt.Fprintf(m.Out, "Finished installation operations: %s\n", step.Description)
 
-	var lines []string
 	for _, output := range step.Outputs {
 		//TODO populate the output
 		v := "SOME VALUE"
-		l := fmt.Sprintf("%s=%v", output.Name, v)
-		lines = append(lines, l)
+
+		err := m.WriteMixinOutputToFile(output.Name, []byte(v))
+		if err != nil {
+			return errors.Wrapf(err, "unable to write output '%s'", output.Name)
+		}
 	}
-	m.WriteOutput(lines)
 	return nil
 }
