@@ -11,14 +11,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:86d0ec31198cc886921814cf915adc8963d9864d2c51a558f2622c937971bd5c"
+  digest = "1:9d12b7590ad4a39a29b55bde07abaa6eb2bfdddfb6b91b6018f57a1d8f388eda"
   name = "github.com/deislabs/porter"
   packages = [
     "pkg/context",
     "pkg/test",
   ]
   pruneopts = "UT"
-  revision = "abd989a8d06c48857ce3df0e0341718a23a4389f"
+  revision = "51221b2438ae7490880982840cc5003a16b8243e"
 
 [[projects]]
   digest = "1:d29ee5ef14a7e0253facd0bcebe6a69a7a4e02a67eb24d2aacd8ccb4a7cea6fc"
@@ -284,6 +284,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/deislabs/porter/pkg/context",
+    "github.com/deislabs/porter/pkg/test",
     "github.com/gobuffalo/packr/v2",
     "github.com/pkg/errors",
     "github.com/spf13/cobra",
