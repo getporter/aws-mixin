@@ -28,9 +28,20 @@ func TestMixin_UnmarshalStep(t *testing.T) {
 	assert.Equal(t, "run-instances", step.Operation)
 
 	assert.Equal(t, []string{"myinst"}, step.Arguments)
-	assert.Equal(t, map[string]string{
-		"image-id":      "ami-xxxxxxxx",
-		"instance-type": "t2.micro"}, step.Flags)
+	assert.Equal(t, Flags{
+		NewFlag("image-id", "ami-xxxxxxxx"),
+		NewFlag("instance-type", "t2.micro"),
+		NewFlag("env", "FOO=BAR", "STUFF=THINGS")}, step.Flags)
+}
+
+func TestMixin_UnmarshalInvalidStep(t *testing.T) {
+	b, err := ioutil.ReadFile("testdata/step-input-invalid.yaml")
+	require.NoError(t, err)
+
+	var step Steps
+	err = yaml.Unmarshal(b, &step)
+	require.Error(t, err)
+	assert.Contains(t, err.Error(), "invalid yaml type for flag env")
 }
 
 func TestMixin_UnmarshalInstallAction(t *testing.T) {
@@ -101,6 +112,7 @@ func TestMixin_UnmarshalUninstallAction(t *testing.T) {
 	assert.Equal(t, map[string]string{
 		"instance-ids": "i-5203422c i-5203422d"}, step.Flags)
 }
+
 func TestMain(m *testing.M) {
 	test.TestMainWithMockedCommandHandlers(m)
 }
@@ -115,10 +127,13 @@ func TestMixin_Execute(t *testing.T) {
 			Step{Service: "s3", Operation: "mb", Arguments: []string{"s3://mybucket"}},
 		},
 		{"no args, with flags", "aws ec2 run-instances --image-id ami-xxxxxxxx --instance-type t2.micro",
-			Step{Service: "ec2", Operation: "run-instances", Flags: map[string]string{"image-id": "ami-xxxxxxxx", "instance-type": "t2.micro"}},
+			Step{Service: "ec2", Operation: "run-instances", Flags: []Flag{NewFlag("image-id", "ami-xxxxxxxx"), NewFlag("instance-type", "t2.micro")}},
 		},
 		{"args and flag", "aws ec2 run-instances myinst --image-id ami-xxxxxxxx --instance-type t2.micro",
-			Step{Service: "ec2", Operation: "run-instances", Arguments: []string{"myinst"}, Flags: map[string]string{"image-id": "ami-xxxxxxxx", "instance-type": "t2.micro"}},
+			Step{Service: "ec2", Operation: "run-instances", Arguments: []string{"myinst"}, Flags: []Flag{NewFlag("image-id", "ami-xxxxxxxx"), NewFlag("instance-type", "t2.micro")}},
+		},
+		{"repeated flag", "aws ec2 run-instances --env FOO=BAR --env STUFF=THINGS",
+			Step{Service: "ec2", Operation: "run-instances", Flags: []Flag{NewFlag("env", "FOO=BAR", "STUFF=THINGS")}},
 		},
 	}
 
