@@ -8,8 +8,4 @@ aws:
     image-id: ami-xxxxxxxx
     instance-type: t2.micro
     env:
-    - FOO=BAR
-    - STUFF=THINGS
-  outputs:
-    - name: "INSTANCE_ID"
-      jsonPath: "$.Instances[0].InstanceId"
+    - foo: [ "stuff", "things"]

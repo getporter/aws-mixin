@@ -2,6 +2,7 @@ package aws
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -61,7 +62,10 @@ func (m *Mixin) Execute() error {
 	}
 	step := action.Steps[0]
 
-	fmt.Fprintf(m.Out, "Starting installation operations: %s\n", step.Description)
+	// Always output json so that we can query it for outputs afterwards
+	step.Flags = append(step.Flags, NewFlag("output", "json"))
+
+	fmt.Fprintf(m.Out, "Starting operation: %s\n", step.Description)
 
 	args := make([]string, 0, 2+len(step.Arguments)+len(step.Flags)*2)
 
@@ -75,9 +79,12 @@ func (m *Mixin) Execute() error {
 	}
 
 	// Append the flags to the argument list
-	for flag, value := range step.Flags {
-		args = append(args, fmt.Sprintf("--%s", flag))
-		args = append(args, value)
+	sort.Sort(step.Flags)
+	for _, flag := range step.Flags {
+		for _, value := range flag.Values {
+			args = append(args, fmt.Sprintf("--%s", flag.Name))
+			args = append(args, value)
+		}
 	}
 
 	cmd := m.NewCommand("aws", args...)
@@ -96,7 +103,7 @@ func (m *Mixin) Execute() error {
 		prettyCmd := fmt.Sprintf("%s %s", cmd.Path, strings.Join(cmd.Args, " "))
 		return errors.Wrap(err, fmt.Sprintf("error running command %s", prettyCmd))
 	}
-	fmt.Fprintf(m.Out, "Finished installation operations: %s\n", step.Description)
+	fmt.Fprintf(m.Out, "Finished operation: %s\n", step.Description)
 
 	for _, output := range step.Outputs {
 		//TODO populate the output

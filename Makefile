@@ -42,7 +42,7 @@ build-client: generate
 
 generate: packr2
 	go generate ./...
-	$(MAKE) clean-packr2
+	$(MAKE) clean-packr
 
 HAS_PACKR2 := $(shell command -v packr2)
 packr2:
@@ -61,6 +61,18 @@ $(BINDIR)/$(VERSION)/$(MIXIN)-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT):
 	mkdir -p $(dir $@)
 	GOOS=$(CLIENT_PLATFORM) GOARCH=$(CLIENT_ARCH) $(XBUILD) -o $@ ./cmd/$(MIXIN)
 
+verify: verify-vendor
+
+verify-vendor: clean-packr dep
+	dep check
+
+HAS_DEP := $(shell command -v dep)
+dep:
+ifndef HAS_DEP
+	curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+endif
+	dep version
+
 test: test-unit
 	$(BINDIR)/$(MIXIN)$(FILE_EXT) version
 
@@ -74,22 +86,19 @@ ifndef HAS_JSONPP
 endif
 
 publish: bin/porter$(FILE_EXT)
-	# The following demonstrates how to publish a mixin. As an example, we show how to publush to azure. 
-	# The porter mixins feed generate command is used to build an ATOM feed for sharing mixins once published
-
 	# AZURE_STORAGE_CONNECTION_STRING will be used for auth in the following commands
-	#if [[ "$(PERMALINK)" == "latest" ]]; then \
-	#	az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(VERSION) -s $(BINDIR)/$(VERSION); \
-	#	az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(PERMALINK) -s $(BINDIR)/$(VERSION); \
-	#else \
-	#	mv $(BINDIR)/$(VERSION) $(BINDIR)/$(PERMALINK); \
-	#	az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(PERMALINK) -s $(BINDIR)/$(PERMALINK); \
-	#fi
+	if [[ "$(PERMALINK)" == "latest" ]]; then \
+		az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(VERSION) -s $(BINDIR)/$(VERSION); \
+		az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(PERMALINK) -s $(BINDIR)/$(VERSION); \
+	else \
+		mv $(BINDIR)/$(VERSION) $(BINDIR)/$(PERMALINK); \
+		az storage blob upload-batch -d porter/mixins/$(MIXIN)/$(PERMALINK) -s $(BINDIR)/$(PERMALINK); \
+	fi
 
 	# Generate the mixin feed
-	#az storage blob download -c porter -n atom.xml -f bin/atom.xml
+	az storage blob download -c porter -n atom.xml -f bin/atom.xml
 	bin/porter mixins feed generate -d bin/mixins -f bin/atom.xml -t build/atom-template.xml
-	#az storage blob upload -c porter -n atom.xml -f bin/atom.xml
+	az storage blob upload -c porter -n atom.xml -f bin/atom.xml
 
 bin/porter$(FILE_EXT):
 	curl -fsSLo bin/porter$(FILE_EXT) https://cdn.deislabs.io/porter/canary/porter-$(CLIENT_PLATFORM)-$(CLIENT_ARCH)$(FILE_EXT)
@@ -100,8 +109,8 @@ install:
 	install $(BINDIR)/$(MIXIN)$(FILE_EXT) $(PORTER_HOME)/mixins/$(MIXIN)/$(MIXIN)$(FILE_EXT)
 	install $(BINDIR)/$(MIXIN)-runtime$(FILE_EXT) $(PORTER_HOME)/mixins/$(MIXIN)/$(MIXIN)-runtime$(FILE_EXT)
 
-clean: clean-packr2
+clean: clean-packr
 	-rm -fr bin/
 
-clean-packr2:
+clean-packr: packr2
 	cd pkg/aws && packr2 clean
