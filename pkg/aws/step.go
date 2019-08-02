@@ -1,17 +1,32 @@
 package aws
 
-import "github.com/pkg/errors"
+import (
+	"github.com/pkg/errors"
+)
 
 type Step struct {
 	Description string   `yaml:"description"`
 	Service     string   `yaml:"service"`
 	Operation   string   `yaml:"operation"`
-	Arguments   []string `yaml:"arguments"`
-	Flags       Flags    `yaml:"flags"`
-	Outputs     []Output `yaml:"outputs"`
+	Arguments   []string `yaml:"arguments,omitempty"`
+	Flags       Flags    `yaml:"flags,omitempty"`
+	Outputs     []Output `yaml:"outputs,omitempty"`
 }
 
 type Flags []Flag
+
+func (flags Flags) Len() int {
+	return len(flags)
+}
+
+func (flags Flags) Swap(i, j int) {
+	flags[i], flags[j] = flags[j], flags[i]
+}
+
+func (flags Flags) Less(i, j int) bool {
+	return flags[i].Name < flags[j].Name
+}
+
 type Flag struct {
 	Name   string
 	Values []string
@@ -26,7 +41,6 @@ func NewFlag(name string, values ...string) Flag {
 	return f
 }
 
-// UnmarshalYAML takes any yaml in this form
 func (flags *Flags) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	flagMap := map[interface{}]interface{}{}
 	err := unmarshal(&flagMap)
@@ -58,7 +72,22 @@ func (flags *Flags) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 		*flags = append(*flags, f)
 	}
+
 	return nil
+}
+
+func (flags Flags) MarshalYAML() (interface{}, error) {
+	result := make(map[string]interface{}, len(flags))
+
+	for _, flag := range flags {
+		if len(flag.Values) == 1 {
+			result[flag.Name] = flag.Values[0]
+		} else {
+			result[flag.Name] = flag.Values
+		}
+	}
+
+	return result, nil
 }
 
 type Output struct {

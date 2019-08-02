@@ -2,6 +2,7 @@ package aws
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/pkg/errors"
@@ -78,9 +79,10 @@ func (m *Mixin) Execute() error {
 	}
 
 	// Append the flags to the argument list
+	sort.Sort(step.Flags)
 	for _, flag := range step.Flags {
 		for _, value := range flag.Values {
-			args = append(args, fmt.Sprintf("--%s", flag))
+			args = append(args, fmt.Sprintf("--%s", flag.Name))
 			args = append(args, value)
 		}
 	}
