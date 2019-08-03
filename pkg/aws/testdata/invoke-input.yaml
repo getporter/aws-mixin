@@ -1,0 +1,7 @@
+list:
+  - aws:
+      description: "List Buckets"
+      service: s3api
+      operation: list-buckets
+      flags:
+        query: "Buckets[].Name"

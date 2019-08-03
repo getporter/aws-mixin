@@ -13,10 +13,16 @@
             "service": {
               "type": "string"
             },
-            "command": {
+            "operation": {
               "type": "string"
             },
-            "parameters": {
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "flags": {
               "type": "object",
               "additionalProperties": {
                 "type": "string"
@@ -30,7 +36,7 @@
           "required": [
             "description",
             "service",
-            "command"
+            "operation"
           ]
         }
       },
@@ -51,10 +57,16 @@
             "service": {
               "type": "string"
             },
-            "command": {
+            "operation": {
               "type": "string"
             },
-            "parameters": {
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "flags": {
               "type": "object",
               "additionalProperties": {
                 "type": "string"
@@ -68,7 +80,51 @@
           "required": [
             "description",
             "service",
-            "command"
+            "operation"
+          ]
+        }
+      },
+      "required": [
+        "aws"
+      ],
+      "additionalProperties": false
+    },
+    "invokeStep": {
+      "type": "object",
+      "properties": {
+        "aws": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "$ref": "#/definitions/stepDescription"
+            },
+            "service": {
+              "type": "string"
+            },
+            "operation": {
+              "type": "string"
+            },
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "flags": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "outputs": {
+              "$ref": "#/definitions/outputs"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "description",
+            "service",
+            "operation"
           ]
         }
       },
@@ -89,10 +145,16 @@
             "service": {
               "type": "string"
             },
-            "command": {
+            "operation": {
               "type": "string"
             },
-            "parameters": {
+            "arguments": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "flags": {
               "type": "object",
               "additionalProperties": {
                 "type": "string"
@@ -106,7 +168,7 @@
           "required": [
             "description",
             "service",
-            "command"
+            "operation"
           ]
         }
       },
@@ -137,28 +199,36 @@
           "jsonPath"
         ]
       }
-    },
-    "type": "object",
-    "properties": {
-      "install": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/installStep"
-        }
-      },
-      "upgrade": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/upgradeStep"
-        }
-      },
-      "uninstall": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/uninstallStep"
-        }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "install": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/installStep"
       }
     },
-    "additionalProperties": false
-  }
+    "upgrade": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/upgradeStep"
+      }
+    },
+    "uninstall": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/uninstallStep"
+      }
+    }
+  },
+  "patternProperties": {
+    ".*": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/invokeStep"
+      }
+    }
+  },
+  "additionalProperties": false
 }

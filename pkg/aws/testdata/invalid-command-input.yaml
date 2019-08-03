@@ -1,0 +1,4 @@
+install:
+  - aws:
+      description: "Ask for help"
+      command: help

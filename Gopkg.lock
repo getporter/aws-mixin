@@ -21,6 +21,14 @@
   revision = "51221b2438ae7490880982840cc5003a16b8243e"
 
 [[projects]]
+  digest = "1:2cd7915ab26ede7d95b8749e6b1f933f1c6d5398030684e6505940a10f31cfda"
+  name = "github.com/ghodss/yaml"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:d29ee5ef14a7e0253facd0bcebe6a69a7a4e02a67eb24d2aacd8ccb4a7cea6fc"
   name = "github.com/gobuffalo/envy"
   packages = ["."]
@@ -219,6 +227,30 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:f4e5276a3b356f4692107047fd2890f2fe534f4feeb6b1fd2f6dfbd87f1ccf54"
+  name = "github.com/xeipuuv/gojsonpointer"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4e3ac2762d5f479393488629ee9370b50873b3a6"
+
+[[projects]]
+  branch = "master"
+  digest = "1:dc6a6c28ca45d38cfce9f7cb61681ee38c5b99ec1425339bfc1e1a7ba769c807"
+  name = "github.com/xeipuuv/gojsonreference"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "bd5ef7bd5415a7ac448318e64f11a24cd21e594b"
+
+[[projects]]
+  digest = "1:1c898ea6c30c16e8d55fdb6fe44c4bee5f9b7d68aa260cfdfc3024491dcc7bea"
+  name = "github.com/xeipuuv/gojsonschema"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f971f3cd73b2899de6923801c147f075263e0c50"
+  version = "v1.1.0"
+
+[[projects]]
+  branch = "master"
   digest = "1:bbe51412d9915d64ffaa96b51d409e070665efc5194fcf145c4a27d4133107a4"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
@@ -285,11 +317,13 @@
   input-imports = [
     "github.com/deislabs/porter/pkg/context",
     "github.com/deislabs/porter/pkg/test",
+    "github.com/ghodss/yaml",
     "github.com/gobuffalo/packr/v2",
     "github.com/pkg/errors",
     "github.com/spf13/cobra",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/require",
+    "github.com/xeipuuv/gojsonschema",
     "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
