@@ -6,7 +6,7 @@ This example creates an AWS bucket, lists the buckets on your account and then d
 
 This is what your credentials file should look like:
 
-```
+```yaml
 name: aws
 credentials:
 - name: AWS_ACCESS_KEY_ID
@@ -20,8 +20,9 @@ credentials:
 # Try it out
 
 ## Create a bucket
-```
+```console
 $ porter install --cred aws
+
 installing porter-aws-bucket...
 executing porter install configuration from /cnab/app/porter.yaml
 Create Bucket
@@ -34,8 +35,9 @@ execution completed successfully!
 ```
 
 ## List buckets
-```
+```console
 $ porter invoke --action list --cred aws
+
 invoking custom action list on porter-aws-bucket...
 executing porter list configuration from /cnab/app/porter.yaml
 List Buckets
@@ -50,8 +52,9 @@ execution completed successfully!
 ```
 
 ## Delete a bucket
-```
+```console
 $ porter uninstall --cred aws
+
 uninstalling porter-aws-bucket...
 executing porter uninstall configuration from /cnab/app/porter.yaml
 Delete Bucket
