@@ -10,7 +10,7 @@ func buildUninstallCommand(m *aws.Mixin) *cobra.Command {
 		Use:   "uninstall",
 		Short: "Execute the uninstall functionality of this mixin",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return m.Uninstall()
+			return m.Execute()
 		},
 	}
 	return cmd
