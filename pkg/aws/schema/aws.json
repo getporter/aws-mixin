@@ -4,41 +4,7 @@
     "installStep": {
       "type": "object",
       "properties": {
-        "aws": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            },
-            "service": {
-              "type": "string"
-            },
-            "operation": {
-              "type": "string"
-            },
-            "arguments": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "flags": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "outputs": {
-              "$ref": "#/definitions/outputs"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "description",
-            "service",
-            "operation"
-          ]
-        }
+        "aws": { "$ref": "#/definitions/aws" }
       },
       "required": [
         "aws"
@@ -48,41 +14,7 @@
     "upgradeStep": {
       "type": "object",
       "properties": {
-        "aws": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            },
-            "service": {
-              "type": "string"
-            },
-            "operation": {
-              "type": "string"
-            },
-            "arguments": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "flags": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "outputs": {
-              "$ref": "#/definitions/outputs"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "description",
-            "service",
-            "operation"
-          ]
-        }
+        "aws": { "$ref": "#/definitions/aws" }
       },
       "required": [
         "aws"
@@ -92,41 +24,7 @@
     "invokeStep": {
       "type": "object",
       "properties": {
-        "aws": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            },
-            "service": {
-              "type": "string"
-            },
-            "operation": {
-              "type": "string"
-            },
-            "arguments": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "flags": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "outputs": {
-              "$ref": "#/definitions/outputs"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "description",
-            "service",
-            "operation"
-          ]
-        }
+        "aws": { "$ref": "#/definitions/aws" }
       },
       "required": [
         "aws"
@@ -136,46 +34,47 @@
     "uninstallStep": {
       "type": "object",
       "properties": {
-        "aws": {
-          "type": "object",
-          "properties": {
-            "description": {
-              "$ref": "#/definitions/stepDescription"
-            },
-            "service": {
-              "type": "string"
-            },
-            "operation": {
-              "type": "string"
-            },
-            "arguments": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "flags": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "string"
-              }
-            },
-            "outputs": {
-              "$ref": "#/definitions/outputs"
-            }
-          },
-          "additionalProperties": false,
-          "required": [
-            "description",
-            "service",
-            "operation"
-          ]
-        }
+        "aws": { "$ref": "#/definitions/aws" }
       },
       "required": [
         "aws"
       ],
       "additionalProperties": false
+    },
+    "aws": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "$ref": "#/definitions/stepDescription"
+        },
+        "service": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "flags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "outputs": {
+          "$ref": "#/definitions/outputs"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "service",
+        "operation"
+      ]
     },
     "stepDescription": {
       "type": "string",

@@ -3,5 +3,6 @@ list:
       description: "List Buckets"
       service: s3api
       operation: list-buckets
-      flags:
-        query: "Buckets[].Name"
+      outputs:
+        - name: buckets
+          jsonPath: '$Buckets[*].Name'
