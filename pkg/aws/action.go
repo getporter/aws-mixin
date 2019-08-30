@@ -4,6 +4,8 @@ import (
 	"github.com/deislabs/porter/pkg/exec/builder"
 )
 
+var _ builder.ExecutableAction = Action{}
+
 type Action struct {
 	Steps []Steps // using UnmarshalYAML so that we don't need a custom type per action
 }
@@ -34,6 +36,9 @@ func (a Action) GetSteps() []builder.ExecutableStep {
 
 	return steps
 }
+
+var _ builder.ExecutableStep = Step{}
+var _ builder.StepWithOutputs = Step{}
 
 type Steps struct {
 	Step `yaml:"aws"`
@@ -77,6 +82,8 @@ func (s Step) GetOutputs() []builder.Output {
 	}
 	return outputs
 }
+
+var _ builder.OutputJsonPath = Output{}
 
 type Output struct {
 	Name     string `yaml:"name"`
