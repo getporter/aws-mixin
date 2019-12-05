@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/deislabs/porter-aws/pkg/aws"
+	"get.porter.sh/mixin/aws/pkg/aws"
 	"github.com/spf13/cobra"
 )
 
