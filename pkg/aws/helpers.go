@@ -3,7 +3,7 @@ package aws
 import (
 	"testing"
 
-	"github.com/deislabs/porter/pkg/context"
+	"get.porter.sh/porter/pkg/context"
 )
 
 type TestMixin struct {
