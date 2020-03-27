@@ -32,7 +32,7 @@ func TestMixin_Execute(t *testing.T) {
 		{"invoke", "testdata/invoke-input.yaml", "buckets",
 			"aws s3api list-buckets --output json"},
 		{"uninstall", "testdata/uninstall-input.yaml", "",
-			`aws ec2 terminate-instances --instance-ids "i-5203422c i-5203422d" --output json`},
+			`aws ec2 terminate-instances --instance-ids i-5203422c i-5203422d --output json`},
 	}
 
 	defer os.Unsetenv(test.ExpectedCommandEnv)
