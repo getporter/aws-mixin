@@ -106,14 +106,14 @@ func TestMixin_UnmarshalUninstallAction(t *testing.T) {
 
 	sort.Sort(step.Flags)
 	assert.Equal(t, builder.Flags{
-		builder.NewFlag("instance-ids", `"i-5203422c i-5203422d"`)}, step.Flags)
+		builder.NewFlag("instance-ids", "i-5203422c i-5203422d")}, step.Flags)
 }
 
 func TestMixin_UnmarshalStep(t *testing.T) {
 	b, err := ioutil.ReadFile("testdata/step-input.yaml")
 	require.NoError(t, err)
 
-	var step Steps
+	var step Step
 	err = yaml.Unmarshal(b, &step)
 	require.NoError(t, err)
 
@@ -137,7 +137,7 @@ func TestMixin_UnmarshalInvalidStep(t *testing.T) {
 	b, err := ioutil.ReadFile("testdata/step-input-invalid.yaml")
 	require.NoError(t, err)
 
-	var step Steps
+	var step Step
 	err = yaml.Unmarshal(b, &step)
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "invalid yaml type for flag env")
