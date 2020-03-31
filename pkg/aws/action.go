@@ -49,18 +49,20 @@ func (a Action) GetSteps() []builder.ExecutableStep {
 
 var _ builder.ExecutableStep = Step{}
 var _ builder.StepWithOutputs = Step{}
+var _ builder.SuppressesOutput = Step{}
 
 type Step struct {
 	Instruction `yaml:"aws"`
 }
 
 type Instruction struct {
-	Description string        `yaml:"description"`
-	Service     string        `yaml:"service"`
-	Operation   string        `yaml:"operation"`
-	Arguments   []string      `yaml:"arguments,omitempty"`
-	Flags       builder.Flags `yaml:"flags,omitempty"`
-	Outputs     []Output      `yaml:"outputs,omitempty"`
+	Description    string        `yaml:"description"`
+	Service        string        `yaml:"service"`
+	Operation      string        `yaml:"operation"`
+	Arguments      []string      `yaml:"arguments,omitempty"`
+	Flags          builder.Flags `yaml:"flags,omitempty"`
+	Outputs        []Output      `yaml:"outputs,omitempty"`
+	SuppressOutput bool          `yaml:"suppress-output,omitempty"`
 }
 
 func (s Step) GetCommand() string {
@@ -91,6 +93,10 @@ func (s Step) GetOutputs() []builder.Output {
 		outputs[i] = s.Outputs[i]
 	}
 	return outputs
+}
+
+func (s Step) SuppressesOutput() bool {
+	return s.SuppressOutput
 }
 
 var _ builder.OutputJsonPath = Output{}
