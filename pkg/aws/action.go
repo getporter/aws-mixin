@@ -49,6 +49,7 @@ func (a Action) GetSteps() []builder.ExecutableStep {
 
 var _ builder.ExecutableStep = Step{}
 var _ builder.StepWithOutputs = Step{}
+var _ builder.SuppressesOutput = Step{}
 
 type Step struct {
 	Instruction `yaml:"aws"`
