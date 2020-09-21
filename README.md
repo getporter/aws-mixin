@@ -2,6 +2,10 @@
 
 This is a mixin for Porter that provides the AWS CLI.
 
+[![Build Status](https://dev.azure.com/getporter/porter/_apis/build/status/aws-mixin?branchName=main)](https://dev.azure.com/getporter/porter/_build/latest?definitionId=5&branchName=main)
+
+<img src="https://porter.sh/images/mixins/aws.svg" align="right" width="150px"/>
+
 The [Buckets Example](./examples/buckets) provides a full working bundle demonstrating how to use this mixin.
 
 ## Mixin Syntax
