@@ -33,6 +33,8 @@ steps:
   displayName: 'Cross Compile'
 
 - script: |
-    AZURE_STORAGE_CONNECTION_STRING=$(AZURE_STORAGE_CONNECTION_STRING) make publish
+    make publish
   displayName: 'Publish'
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  env:
+    GITHUB_TOKEN: $(GITHUB_TOKEN)
