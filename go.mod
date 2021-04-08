@@ -3,7 +3,7 @@ module get.porter.sh/mixin/aws
 go 1.13
 
 require (
-	get.porter.sh/porter v0.37.0
+	get.porter.sh/porter v0.37.1
 	github.com/ghodss/yaml v1.0.0
 	github.com/gobuffalo/packr/v2 v2.8.0
 	github.com/spf13/cobra v1.0.0
@@ -13,5 +13,3 @@ require (
 )
 
 replace github.com/hashicorp/go-plugin => github.com/carolynvs/go-plugin v1.0.1-acceptstdin
-
-replace get.porter.sh/porter => github.com/carolynvs/porter v0.37.1-0.20210407160757-1a126a6fe413
