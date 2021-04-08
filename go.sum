@@ -16,6 +16,8 @@ cloud.google.com/go/firestore v1.1.0/go.mod h1:ulACoGHTpvq5r8rxGJ4ddJZBZqakUQqCl
 cloud.google.com/go/pubsub v1.0.1/go.mod h1:R0Gpsv3s54REJCy4fxDixWD93lHJMoZTyQ2kNxGRt3I=
 cloud.google.com/go/storage v1.0.0/go.mod h1:IhtSnM/ZTZV8YYJWCY8RULGVqBDmpoyjwiyrjsg+URw=
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
+get.porter.sh/porter v0.37.2 h1:hsbTP6tV1zjAwbYDyfJT2CQAqAEMSx5Gr4fccHXJ/hc=
+get.porter.sh/porter v0.37.2/go.mod h1:14I/j+hom3CoPvMnIisvPGnen9sYUNi0nkYjrqrl/wc=
 github.com/Azure/azure-sdk-for-go v19.1.1+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
 github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78/go.mod h1:LmzpDX56iTiv29bbRTIsUNlaFfuhWRQBWjQdVyAevI8=
 github.com/Azure/go-autorest v10.15.5+incompatible/go.mod h1:r+4oMnoxhatjLLJ6zxSWATqVooLgysK6ZNox3g/xq24=
@@ -85,8 +87,6 @@ github.com/carolynvs/datetime-printer v0.2.0/go.mod h1:p9W8ZUhmQUOVD5kiDuGXwRG65
 github.com/carolynvs/go-plugin v1.0.1-acceptstdin/go.mod h1:++UyYGoz3o5w9ZzAdZxtQKrWWP+iqPBn3cQptSMzBuY=
 github.com/carolynvs/magex v0.5.1-0.20210406180601-bf968bbaac3c h1:AdoFQF6X8P7RSku6rXkuHYlrTLFzhaBeIv5L+MAupGs=
 github.com/carolynvs/magex v0.5.1-0.20210406180601-bf968bbaac3c/go.mod h1:hqaEkr9TAv+kFb/5wgDiTdszF13rpe0Q+bWHmTe6N74=
-github.com/carolynvs/porter v0.37.1-0.20210408135241-db46041b5299 h1:B5wZPVm5/b+f+p305yms12lY5Au9yN/EMsM4vWS0foU=
-github.com/carolynvs/porter v0.37.1-0.20210408135241-db46041b5299/go.mod h1:14I/j+hom3CoPvMnIisvPGnen9sYUNi0nkYjrqrl/wc=
 github.com/cbroglie/mustache v1.0.1 h1:ivMg8MguXq/rrz2eu3tw6g3b16+PQhoTn6EZAhst2mw=
 github.com/cbroglie/mustache v1.0.1/go.mod h1:R/RUa+SobQ14qkP4jtx5Vke5sDytONDQXNLPY/PO69g=
 github.com/cenkalti/backoff v2.2.1+incompatible/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
