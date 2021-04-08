@@ -3,7 +3,6 @@ package aws
 import (
 	"bytes"
 	"io/ioutil"
-	"os"
 	"path"
 	"testing"
 
@@ -35,12 +34,12 @@ func TestMixin_Execute(t *testing.T) {
 			`aws ec2 terminate-instances --instance-ids i-5203422c i-5203422d --output json`},
 	}
 
-	defer os.Unsetenv(test.ExpectedCommandEnv)
 	for _, tc := range testcases {
+		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			m := NewTestMixin(t)
 
-			os.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
+			m.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
 			mixinInputB, err := ioutil.ReadFile(tc.file)
 			require.NoError(t, err)
 
