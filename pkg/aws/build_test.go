@@ -1,24 +1,25 @@
 package aws
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestMixin_Build(t *testing.T) {
 	m := NewTestMixin(t)
 
-	err  := m.Build()
+	err := m.Build()
 	require.NoError(t, err, "Build failed")
 
 	gotOutput := m.TestContext.GetOutput()
 
-	wantOutput := `RUN apt-get update && apt-get install -y curl unzip python less groff
-RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "/tmp/awscli-bundle.zip"
-RUN unzip /tmp/awscli-bundle.zip -d /tmp
-RUN /tmp/awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-RUN rm -fr /tmp/awscli-bundle.zip /tmp/awscli-bundle
+	wantOutput := `RUN apt-get update && apt-get install -y curl unzip glibc less groff
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+RUN rm -fr awscliv2.zip ./aws
 `
 
 	assert.Equal(t, wantOutput, gotOutput)
