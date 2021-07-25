@@ -15,7 +15,7 @@ func TestMixin_Build(t *testing.T) {
 
 	gotOutput := m.TestContext.GetOutput()
 
-	wantOutput := `RUN apt-get update && apt-get install -y curl unzip glibc less groff
+	wantOutput := `RUN apt-get update && apt-get install -y --no-install-recommends curl unzip libc6 less groff
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
 RUN ./aws/install
