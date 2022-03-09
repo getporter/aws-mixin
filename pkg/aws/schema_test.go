@@ -11,39 +11,21 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-func TestMixin_GetSchema(t *testing.T) {
-	m := NewTestMixin(t)
-
-	gotSchema, err := m.GetSchema()
-	require.NoError(t, err)
-
-	wantSchema, err := ioutil.ReadFile("schema/aws.json")
-	require.NoError(t, err)
-
-	assert.Equal(t, string(wantSchema), gotSchema)
-}
-
 func TestMixin_PrintSchema(t *testing.T) {
 	m := NewTestMixin(t)
 
-	err := m.PrintSchema()
-	require.NoError(t, err)
-
+	m.PrintSchema()
 	gotSchema := m.TestContext.GetOutput()
 
-	wantSchema, err := ioutil.ReadFile("schema/aws.json")
+	wantSchema, err := ioutil.ReadFile("schema/schema.json")
 	require.NoError(t, err)
 
 	assert.Equal(t, string(wantSchema), gotSchema)
 }
 
 func TestMixin_ValidateSchema(t *testing.T) {
-	m := NewTestMixin(t)
-
 	// Load the mixin schema
-	schemaB, err := m.GetSchema()
-	require.NoError(t, err)
-	schemaLoader := gojsonschema.NewStringLoader(schemaB)
+	schemaLoader := gojsonschema.NewStringLoader(schema)
 
 	testcases := []struct {
 		name      string

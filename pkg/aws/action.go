@@ -69,6 +69,10 @@ func (s Step) GetCommand() string {
 	return "aws"
 }
 
+func (s Step) GetWorkingDir() string {
+	return "."
+}
+
 func (s Step) GetArguments() []string {
 	args := make([]string, 0, len(s.Arguments)+2)
 
