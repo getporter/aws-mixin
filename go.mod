@@ -9,7 +9,7 @@ go 1.17
 replace github.com/spf13/viper => github.com/getporter/viper v1.7.1-porter.2.0.20210514172839-3ea827168363
 
 require (
-	get.porter.sh/porter v1.0.0-alpha.12
+	get.porter.sh/porter v1.0.0-alpha.13
 	github.com/ghodss/yaml v1.0.0
 	github.com/spf13/cobra v1.1.3
 	github.com/stretchr/testify v1.7.0
@@ -27,7 +27,7 @@ require (
 	github.com/andybalholm/brotli v1.0.0 // indirect
 	github.com/andybalholm/cascadia v1.0.0 // indirect
 	github.com/carolynvs/aferox v0.3.0 // indirect
-	github.com/carolynvs/magex v0.6.0 // indirect
+	github.com/carolynvs/magex v0.6.1 // indirect
 	github.com/cbroglie/mustache v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.1 // indirect
 	github.com/cnabio/cnab-go v0.23.0 // indirect
