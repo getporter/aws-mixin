@@ -26,19 +26,19 @@ func buildRootCommand(in io.Reader) (*cobra.Command, error) {
 	if err != nil {
 		return nil, err
 	}
-	m.In = in
+	m.Config.In = in
 	cmd := &cobra.Command{
 		Use:  "aws",
 		Long: "A skeleton mixin to use for building other mixins for porter 👩🏽‍✈️",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			// Enable swapping out stdout/stderr for testing
-			m.Out = cmd.OutOrStdout()
-			m.Err = cmd.OutOrStderr()
+			m.Config.Out = cmd.OutOrStdout()
+			m.Config.Err = cmd.OutOrStderr()
 		},
 		SilenceUsage: true,
 	}
 
-	cmd.PersistentFlags().BoolVar(&m.Debug, "debug", false, "Enable debug logging")
+	cmd.PersistentFlags().BoolVar(&m.Config.DebugMode, "debug", false, "Enable debug logging")
 
 	cmd.AddCommand(buildVersionCommand(m))
 	cmd.AddCommand(buildSchemaCommand(m))
