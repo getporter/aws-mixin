@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"get.porter.sh/porter/pkg/portercontext"
+	"get.porter.sh/porter/pkg/runtime"
 )
 
 type TestMixin struct {
@@ -16,7 +17,7 @@ func NewTestMixin(t *testing.T) *TestMixin {
 	c := portercontext.NewTestContext(t)
 	m := &TestMixin{
 		Mixin: &Mixin{
-			Context: c.Context,
+			Config: runtime.NewConfigFor(c.Context),
 		},
 		TestContext: c,
 	}
