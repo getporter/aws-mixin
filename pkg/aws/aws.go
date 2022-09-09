@@ -11,8 +11,10 @@ type Mixin struct {
 
 // New aws mixin client, initialized with useful defaults.
 func New() (*Mixin, error) {
-	return &Mixin{
+	m := &Mixin{
 		Context: context.New(),
-	}, nil
+	}
+	m.SetUserAgent()
 
+	return m, nil
 }
