@@ -6,15 +6,15 @@ import (
 
 type Mixin struct {
 	// Config is a specialized context with additional runtime settings.
-	Config runtime.RuntimeConfig
+	runtime.RuntimeConfig
 }
 
 // New aws mixin client, initialized with useful defaults.
-func New() (*Mixin, error) {
+func New() *Mixin {
 	m := &Mixin{
-		Config: runtime.NewConfig(),
+		RuntimeConfig: runtime.NewConfig(),
 	}
 	m.SetUserAgent()
 
-	return m, nil
+	return m
 }
