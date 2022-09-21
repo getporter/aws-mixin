@@ -8,7 +8,7 @@ import (
 )
 
 func (m *Mixin) PrintVersion(opts version.Options) error {
-	return version.PrintVersion(m.Config.Context, opts, m.Version())
+	return version.PrintVersion(m.Context, opts, m.Version())
 }
 
 func (m *Mixin) Version() mixin.Metadata {

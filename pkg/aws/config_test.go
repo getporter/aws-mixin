@@ -15,5 +15,5 @@ func TestSetUserAgent(t *testing.T) {
 	m.SetUserAgent()
 
 	expected := "getporter/aws/" + pkg.Version
-	require.Contains(t, m.Config.Getenv(AWS_EXECUTION_ENV), expected)
+	require.Contains(t, m.Getenv(AWS_EXECUTION_ENV), expected)
 }

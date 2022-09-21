@@ -41,21 +41,21 @@ func TestMixin_Execute(t *testing.T) {
 			ctx := context.Background()
 			m := NewTestMixin(t)
 
-			m.Config.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
+			m.Setenv(test.ExpectedCommandEnv, tc.wantCommand)
 			mixinInputB, err := ioutil.ReadFile(tc.file)
 			require.NoError(t, err)
 
-			m.Config.In = bytes.NewBuffer(mixinInputB)
+			m.In = bytes.NewBuffer(mixinInputB)
 
 			err = m.Execute(ctx)
 			require.NoError(t, err, "execute failed")
 
 			if tc.wantOutput == "" {
-				outputs, _ := m.Config.FileSystem.ReadDir("/cnab/app/porter/outputs")
+				outputs, _ := m.FileSystem.ReadDir("/cnab/app/porter/outputs")
 				assert.Empty(t, outputs, "expected no outputs to be created")
 			} else {
 				wantPath := path.Join("/cnab/app/porter/outputs", tc.wantOutput)
-				exists, _ := m.Config.FileSystem.Exists(wantPath)
+				exists, _ := m.FileSystem.Exists(wantPath)
 				assert.True(t, exists, "output file was not created %s", wantPath)
 			}
 		})
