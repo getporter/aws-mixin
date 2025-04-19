@@ -1,6 +1,7 @@
 module get.porter.sh/mixin/aws
 
-go 1.21
+go 1.23.0
+
 toolchain go1.24.1
 
 // These are replace directives copied from porter
